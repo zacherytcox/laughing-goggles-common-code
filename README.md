@@ -65,6 +65,7 @@ shellcheck --color=never <file>.sh
 Checking Terraform files...
 terraform fmt -check -recursive
 Please run 'terraform fmt -recursive' to fix found issues.
+```
 
 
 ## Disclaimer
