@@ -67,6 +67,9 @@ terraform fmt -check -recursive
 Please run 'terraform fmt -recursive' to fix found issues.
 ```
 
+## Debugging
+If 'black' cannot be found, please add '$HOME/Library/Python/<Your Version>/bin' to your PATH environment.
+
 
 ## Disclaimer
 
