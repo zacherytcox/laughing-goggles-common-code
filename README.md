@@ -1,76 +1,118 @@
-# Linter and Formatter Checker Script
+# Laughing Goggles Common Code
 
-This Bash script automates the process of checking Python, Bash, and Terraform files for linting issues and formatting inconsistencies. It ensures that your code adheres to certain standards and provides easy commands to fix any issues.
+A collection of common code utilities and tools for the Laughing Goggles project.
 
-## Features
+## Project Structure
 
-- **Python**: Uses the `black` linter to check Python code.
-- **Bash**: Uses `shellcheck` to check shell script files for syntax and style issues.
-- **Terraform**: Uses `terraform fmt` to check and enforce formatting for Terraform files.
+```
+laughing-goggles-common-code/
+├── code_check/          # Code quality checking tools
+│   └── check.sh        # Script for checking Python, Bash, and Terraform files
+└── terraformer/        # Terraform-related utilities
+    └── extract_all.sh  # Script for importing AWS resources into Terraform
+```
 
-## Requirements
+## Code Quality Checker
 
-This script assumes that you have the following tools installed:
-- **Python** (with `pip3` installed)
-- **Brew** (for installing missing dependencies like `shellcheck` and `terraform`)
-- **Terraform** (for checking Terraform files)
+The `code_check/check.sh` script provides automated code quality checks for Python, Bash, and Terraform files. It ensures consistent code formatting and identifies potential issues.
 
-If any required tools are missing, the script will attempt to install them for you.
+### Features
 
-## Installation
+- **Python**: Uses `black` for code formatting
+- **Bash**: Uses `shellcheck` for shell script validation
+- **Terraform**: Uses `terraform fmt` for configuration formatting
 
-**Clone the repository or download the script**:
+### Requirements
+
+- Python 3.x with pip3
+- Homebrew (for installing dependencies)
+- macOS (for Homebrew support)
+
+### Installation
+
+1. Clone the repository:
    ```bash
-   git clone <repository_url>
-   cd <project_directory>
+   git clone <repository-url>
+   cd laughing-goggles-common-code
    ```
-## Usage
 
-To run the script, simply execute it from the command line:
+2. Make the check script executable:
+   ```bash
+   chmod +x code_check/check.sh
+   ```
 
+### Usage
+
+Run the code quality checker:
 ```bash
-./<script_name>.sh
+./code_check/check.sh
 ```
 
-## The script will perform the following checks:
+The script will:
+1. Check and install required dependencies if missing
+2. Validate Python files using `black`
+3. Check Bash scripts using `shellcheck`
+4. Verify Terraform formatting using `terraform fmt`
 
-1. **Check Python files**: It will check all Python files in the current directory using the `black` linter. If issues are found, it suggests running `black .` to fix them.
+### Dependencies
 
-2. **Check Bash files**: It will check all `.sh` files using `shellcheck`. If any issues are found, they will be displayed.
+The script automatically installs these tools if missing:
+- `black`: Python code formatter
+- `shellcheck`: Shell script analyzer
+- `terraform`: Infrastructure as Code tool
 
-3. **Check Terraform files**: It will check all Terraform files using `terraform fmt -check`. If any formatting issues are found, it suggests running `terraform fmt -recursive` to fix them.
+## Terraformer Utility
 
-## Dependencies
+The `terraformer/extract_all.sh` script helps you import existing AWS infrastructure into Terraform configuration files. It uses the `terraformer` tool to automatically generate Terraform configurations for your AWS resources.
 
-The script checks for and installs the following tools if they're not already installed:
+### Features
 
-- **black**: Python linter for code formatting
-- **shellcheck**: Linter for shell scripts
-- **terraform**: Tool for managing Terraform configuration files
+- Imports multiple AWS resources across all major regions
+- Supports a wide range of AWS services including EC2, S3, RDS, and more
+- Automatically installs required dependencies (terraform and terraformer)
+- Interactive AWS profile selection
+- Generates proper provider configuration
 
-If you don't have `brew` (Homebrew) installed, please install it from [https://brew.sh/](https://brew.sh/).
+### Requirements
 
-## Example Output
+- macOS with Homebrew
+- AWS credentials configured
+- AWS CLI installed
 
-When you run the script, you might see output similar to the following:
+### Usage
 
-```text
-Checking Python files...
-black . --check --no-color
-Please run 'black .' to fix found issues.
+1. Make the script executable:
+   ```bash
+   chmod +x terraformer/extract_all.sh
+   ```
 
-Checking Bash files...
-shellcheck --color=never <file>.sh
+2. Run the script:
+   ```bash
+   ./terraformer/extract_all.sh
+   ```
 
-Checking Terraform files...
-terraform fmt -check -recursive
-Please run 'terraform fmt -recursive' to fix found issues.
-```
+3. Follow the prompts to:
+   - Enter your AWS profile name
+   - Confirm when you want to run the terraformer import
 
-## Debugging
-If 'black' cannot be found, please add '$HOME/Library/Python/<Your Version>/bin' to your PATH environment.
+The script will:
+1. Check and install required dependencies
+2. Initialize Terraform with the AWS provider
+3. Import your AWS resources into Terraform configuration files
+
+### Supported AWS Resources
+
+The script supports importing a comprehensive list of AWS resources including:
+- Compute (EC2, ECS, Lambda)
+- Storage (S3, EBS)
+- Database (RDS, DynamoDB)
+- Networking (VPC, Route53)
+- Security (IAM, KMS)
+- And many more AWS services
 
 
 ## Disclaimer
 
 This README was generated by an AI because, honestly, I was too lazy to write it myself. If it doesn't make sense or contains strange phrases, blame the machine — ~~it tried its best, I promise!~~ it tried.
+
+Also, I do not accept any responsibility for the content of this repository or the scripts within it. It is what it is. 
