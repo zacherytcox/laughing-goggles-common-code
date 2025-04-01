@@ -15,7 +15,7 @@ if [ $? -ne 0 ]; then
     pip3 install black
 fi
 printf "\n${RED}Checking Python files...${NC}\n"
-black . --check --no-color 
+black . --check --no-color
 printf "${GREEN}Please run 'black .' to fix found issues.${NC}\n"
 
 
@@ -39,4 +39,3 @@ fi
 printf "\n${RED}Checking Terraform files...\nFiles that need formating:${NC}\n"
 terraform fmt -check -recursive
 printf "${GREEN}Please run 'terraform fmt -recursive' to fix found issues.${NC}\n"
-
