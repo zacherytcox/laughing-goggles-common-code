@@ -14,8 +14,10 @@ if [ $? -ne 0 ]; then
     echo "'black' linter is not installed. Installing..."
     pip3 install black
 fi
+# shellcheck disable=2059
 printf "\n${RED}Checking Python files...${NC}\n"
 black . --check --no-color
+# shellcheck disable=2059
 printf "${GREEN}Please run 'black .' to fix found issues.${NC}\n"
 
 
@@ -26,7 +28,9 @@ if [ $? -ne 0 ]; then
     echo "'shellcheck' linter is not installed. Installing..."
     brew install shellcheck
 fi
+# shellcheck disable=2059
 printf "\n${RED}Checking Bash files...${NC}\n"
+# shellcheck disable=2046
 shellcheck --color=never $(find . -type f -name "*.sh")
 
 
@@ -36,6 +40,8 @@ if [ $? -ne 0 ]; then
     echo "'terraform' is not installed. Installing..."
     brew install terraform
 fi
+# shellcheck disable=2059
 printf "\n${RED}Checking Terraform files...\nFiles that need formating:${NC}\n"
 terraform fmt -check -recursive
+# shellcheck disable=2059
 printf "${GREEN}Please run 'terraform fmt -recursive' to fix found issues.${NC}\n"

@@ -43,6 +43,7 @@ repos:
 
 # Check if pre-commit is installed
 pip3 show "pre-commit" > /dev/null 2>&1
+# shellcheck disable=2181
 if [ $? -ne 0 ]; then
     echo "Installing pre-commit..."
     pip3 install pre-commit

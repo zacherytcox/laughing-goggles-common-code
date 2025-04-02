@@ -4,6 +4,7 @@ this_resources="accessanalyzer,acm,alb,api_gateway,appsync,auto_scaling,batch,bu
 this_regions=("ap-south-1,eu-north-1,eu-west-3,eu-west-2,eu-west-1,ap-northeast-3,ap-northeast-2,ap-northeast-1,ca-central-1,sa-east-1,ap-southeast-1,ap-southeast-2,eu-central-1,us-east-1,us-east-2,us-west-1,us-west-2")
 
 # Prompt the user for a parameter
+# shellcheck disable=2162
 read -p "Please enter the name of the AWS Profile to use (specify 'default' for default credential): " parameter
 
 # Check if the parameter is empty
@@ -27,7 +28,7 @@ fi
 
 this_aws_profile=$parameter
 
-echo """
+echo '''
 terraform {
   required_providers {
     aws = {
@@ -35,15 +36,17 @@ terraform {
     }
   }
 }
-""" > ./versions.tf
+''' > ./versions.tf
 
 terraform init
 
 # Prompt the user for a parameter
+# shellcheck disable=2162
 read -p "Enter 'yes' to run terraformer (profile: $this_aws_profile). Anything else to skip." run_runner
 
 # Check if the parameter is empty
 if [ "$run_runner" == "yes" ]; then
     echo "Running terraformer..."
-    terraformer import aws --resources="$this_resources" --regions="$this_regions" --profile=$this_aws_profile
+    # shellcheck disable=2128
+    terraformer import aws --resources="$this_resources" --regions="$this_regions" --profile="$this_aws_profile"
 fi
