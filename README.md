@@ -6,12 +6,16 @@ A collection of common code utilities and tools for the Laughing Goggles project
 
 ```
 laughing-goggles-common-code/
-├── code_check/          # Code quality checking tools
-│   └── check.sh        # Script for checking Python, Bash, and Terraform files
-├── pre-hooks/          # Git pre-commit hooks setup
-│   └── setup.sh        # Script for setting up pre-commit hooks
-└── terraformer/        # Terraform-related utilities
-    └── extract_all.sh  # Script for importing AWS resources into Terraform
+├── aws2tf/            # AWS to Terraform conversion tools
+│   └── extract_all.sh # Script for importing AWS resources into Terraform
+├── code_check/        # Code quality checking tools
+│   └── check.sh      # Script for checking Python, Bash, and Terraform files
+├── pre-hooks/         # Git pre-commit hooks setup
+│   └── setup.sh      # Script for setting up pre-commit hooks
+├── prowler/           # AWS security assessment tools
+│   └── get_inventory.sh # Script for running AWS security inventory
+└── terraformer/       # Terraform-related utilities
+    └── extract_all.sh # Script for importing AWS resources into Terraform
 ```
 
 ## Pre-commit Hooks Setup
@@ -168,6 +172,86 @@ The script supports importing a comprehensive list of AWS resources including:
 - Security (IAM, KMS)
 - And many more AWS services
 
+## AWS2TF Utility
+
+The `aws2tf/extract_all.sh` script helps you convert existing AWS infrastructure into Terraform configuration files. It uses the `aws2tf` tool to automatically generate Terraform configurations for your AWS resources.
+
+### Features
+
+- Imports multiple AWS resources across all major services
+- Supports a comprehensive list of AWS services including:
+  - Networking (VPC, IGW, NATGW)
+  - Compute (EC2, ECS, Lambda)
+  - Storage (S3, EBS, EFS)
+  - Database (RDS, DynamoDB, Aurora)
+  - Security (IAM, KMS, Security Groups)
+  - And many more AWS services
+- Automatically organizes output by service
+- Uses AWS SSO profile configuration
+
+### Requirements
+
+- AWS CLI configured with SSO
+- Python 3.x
+- AWS credentials configured with 'default' profile
+
+### Usage
+
+1. Configure AWS SSO:
+   ```bash
+   aws configure sso --profile default
+   ```
+
+2. Run the script:
+   ```bash
+   ./aws2tf/extract_all.sh
+   ```
+
+The script will:
+1. Create a directory with timestamp and account information
+2. Process each AWS service section
+3. Generate Terraform configuration files for each service
+4. Organize output in the created directory
+
+## Prowler Security Assessment
+
+The `prowler/get_inventory.sh` script provides automated AWS security assessment using the Prowler tool. It helps identify security risks and compliance issues in your AWS environment.
+
+### Features
+
+- Automated AWS security assessment
+- Quick inventory of AWS resources
+- Virtual environment management
+- Support for multiple AWS profiles and regions
+- CSV, JSON, and HTML output options
+
+### Requirements
+
+- Python 3.x
+- AWS CLI configured
+- Virtual environment support
+
+### Usage
+
+1. Make the script executable:
+   ```bash
+   chmod +x prowler/get_inventory.sh
+   ```
+
+2. Run the script:
+   ```bash
+   ./prowler/get_inventory.sh [profile] [region]
+   ```
+
+   Where:
+   - `profile` (optional): AWS profile to use (defaults to 'default')
+   - `region` (optional): AWS region to scan (defaults to configured region)
+
+The script will:
+1. Set up a Python virtual environment if needed
+2. Install Prowler if not present
+3. Run the security assessment
+4. Generate inventory reports
 
 ## Disclaimer
 
