@@ -40,7 +40,6 @@ repos:
     language_version: python$current_python_version_number
 """
 
-
 # Check if pre-commit is installed
 pip3 show "pre-commit" > /dev/null 2>&1
 # shellcheck disable=2181
@@ -53,7 +52,6 @@ fi
 
 
 echo "$this_config" > ./.pre-commit-config.yaml
-
 
 # Ask user if they want to install pre-commit hooks
 read -p "Would you like to install pre-commit hooks? (y/n) " -n 1 -r
